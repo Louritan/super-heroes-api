@@ -15,7 +15,13 @@ namespace SuperHeroes.Application.UseCases.SuperHeroes
                 .WithMessage(ResourceErrorMessages.SUPER_POWER_REQUIRED_ERROR)
                 .Must(ids => ids.Distinct().Count() == ids.Count())
                 .WithMessage(ResourceErrorMessages.SUPER_POWER_DUPLICATED_ERROR);
-            RuleFor(superHero => superHero.BirthDate).LessThan(DateTime.Now).WithMessage(ResourceErrorMessages.FUTURE_BIRTH_DATE_ERROR);
+            RuleFor(superHero => superHero.BirthDate)
+                .NotEmpty()
+                .WithMessage(ResourceErrorMessages.BIRTH_DATE_REQUIRED_ERROR)
+                .Must(date => date.Kind == DateTimeKind.Utc)
+                .WithMessage(ResourceErrorMessages.BIRTH_DATE_FORMAT_ERROR)
+                .LessThan(DateTime.Now)
+                .WithMessage(ResourceErrorMessages.FUTURE_BIRTH_DATE_ERROR);
             RuleFor(superHero => superHero.Height).NotEmpty().WithMessage(ResourceErrorMessages.HEIGHT_REQUIRED_ERROR);
             RuleFor(superHero => superHero.Weight).NotEmpty().WithMessage(ResourceErrorMessages.WEIGHT_REQUIRED_ERROR);
         }

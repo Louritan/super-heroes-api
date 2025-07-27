@@ -61,6 +61,24 @@ namespace SuperHeroes.Exception {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Birth date must be in UTC!.
+        /// </summary>
+        public static string BIRTH_DATE_FORMAT_ERROR {
+            get {
+                return ResourceManager.GetString("BIRTH_DATE_FORMAT_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Birth date is required!.
+        /// </summary>
+        public static string BIRTH_DATE_REQUIRED_ERROR {
+            get {
+                return ResourceManager.GetString("BIRTH_DATE_REQUIRED_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Description is required!.
         /// </summary>
         public static string DESCRIPTION_REQUIRED_ERROR {
