@@ -61,26 +61,7 @@ namespace SuperHeroes.Application.UseCases.SuperHeroes.Register
             }).ToList();
             await _heroesPowersWriteRepository.Add(heroPowers);
 
-            try
-            {
-                await _unitOfWork.Commit();
-            }
-            catch (System.Exception ex)
-            {
-                Console.Error.WriteLine($"Erro no Commit: {ex.Message}");
-                if (ex.InnerException != null)
-                {
-                    Console.Error.WriteLine($"Inner exception: {ex.InnerException.Message}");
-                    Console.Error.WriteLine(ex.InnerException.StackTrace);
-                }
-                else
-                {
-                    Console.Error.WriteLine(ex.StackTrace);
-                }
-
-                throw;
-            }
-
+            await _unitOfWork.Commit();
             return _mapper.Map<ResponseSuperHeroRegisteredJson>(superHero);
         }
 
