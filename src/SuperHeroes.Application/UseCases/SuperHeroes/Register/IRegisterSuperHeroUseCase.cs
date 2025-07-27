@@ -5,6 +5,6 @@ namespace SuperHeroes.Application.UseCases.SuperHeroes.Register
 {
     public interface IRegisterSuperHeroUseCase
     {
-        Task<ResponseSuperHeroRegisteredJson> Execute(RequestRegisterSuperHeroJson request);
+        Task<ResponseSuperHeroRegisteredJson> Execute(RequestSuperHeroJson request);
     }
 }

@@ -1,12 +1,13 @@
-﻿namespace SuperHeroes.Communication.Requests
+﻿namespace SuperHeroes.Domain.DTOs
 {
-    public class RequestRegisterSuperHeroJson
+    public class SuperHeroDTO
     {
+        public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string HeroName { get; set; } = string.Empty;
-        public List<int> SuperPowerIds { get; set; } = new List<int>();
         public DateTime BirthDate { get; set; }
         public float Height { get; set; }
         public float Weight { get; set; }
+        public List<SuperPowerDTO> SuperPowers { get; set; } = [];
     }
 }

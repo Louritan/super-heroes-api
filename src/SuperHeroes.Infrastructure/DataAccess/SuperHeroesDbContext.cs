@@ -9,6 +9,10 @@ namespace SuperHeroes.Infrastructure.DataAccess
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<SuperHero>()
+                .HasIndex(sh => sh.HeroName)
+                .IsUnique();
+
             modelBuilder.Entity<HeroPower>()
                 .HasKey(hp => new { hp.HeroId, hp.PowerId });
 

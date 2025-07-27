@@ -16,13 +16,21 @@ namespace SuperHeroes.Application.AutoMapper
 
         private void RequestToEntity()
         {
-            CreateMap<RequestRegisterSuperHeroJson, SuperHero>();
+            CreateMap<RequestSuperHeroJson, SuperHero>();
+            CreateMap<RequestRegisterSuperPowerJson, SuperPower>();
         }
 
         private void EntityToResponse()
         {
             CreateMap<SuperHero, ResponseSuperHeroRegisteredJson>();
             CreateMap<SuperHeroListDTO, ResponseSuperHeroesJson>();
+            CreateMap<SuperHeroShortDTO, ResponseShortSuperHeroJson>();
+            CreateMap<SuperPowerShortDTO, ResponseShortSuperPowerJson>();
+            CreateMap<SuperHeroDTO, ResponseSuperHeroJson>();
+            CreateMap<SuperPowerDTO, ResponseSuperPowerJson>();
+
+            CreateMap<SuperPower, ResponseSuperPowerRegisteredJson>();
+            CreateMap<SuperPower, ResponseSuperPowerJson>();
         }
     }
 }

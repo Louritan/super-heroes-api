@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SuperHeroes.Domain.Repositories;
+using SuperHeroes.Domain.Repositories.HeroesPowers;
 using SuperHeroes.Domain.Repositories.SuperHeroes;
 using SuperHeroes.Domain.Repositories.SuperPowers;
 using SuperHeroes.Infrastructure.DataAccess;
@@ -20,8 +21,12 @@ namespace SuperHeroes.Infrastructure
         private static void AddRepositories(IServiceCollection services)
         {
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<ISuperHeroesRepository, SuperHeroesRepository>();
-            services.AddScoped<ISuperPowersRepository, SuperPowersRepository>();
+            services.AddScoped<ISuperHeroesReadOnlyRepository, SuperHeroesRepository>();
+            services.AddScoped<ISuperHeroesWriteOnlyRepository, SuperHeroesRepository>();
+            services.AddScoped<ISuperPowersReadOnlyRepository, SuperPowersRepository>();
+            services.AddScoped<ISuperPowersWriteOnlyRepository, SuperPowersRepository>();
+            services.AddScoped<IHeroesPowersWriteOnlyRepository, HeroesPowersRepository>();
+            services.AddScoped<ISuperHeroesUpdateOnlyRepository, SuperHeroesRepository>();
         }
 
         private static void AddDbContext(IServiceCollection services, IConfiguration configuration)

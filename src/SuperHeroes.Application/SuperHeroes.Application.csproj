@@ -18,8 +18,4 @@
     <ProjectReference Include="..\SuperHeroes.Exception\SuperHeroes.Exception.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="UseCases\SuperPowers\" />
-  </ItemGroup>
-
 </Project>

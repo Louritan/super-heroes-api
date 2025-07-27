@@ -5,7 +5,7 @@ using SuperHeroes.Domain.Repositories.SuperHeroes;
 
 namespace SuperHeroes.Infrastructure.DataAccess.Repositories
 {
-    internal class SuperHeroesRepository : ISuperHeroesRepository
+    internal class SuperHeroesRepository : ISuperHeroesReadOnlyRepository, ISuperHeroesWriteOnlyRepository, ISuperHeroesUpdateOnlyRepository
     {
         private readonly SuperHeroesDbContext _dbContext;
 
@@ -19,9 +19,21 @@ namespace SuperHeroes.Infrastructure.DataAccess.Repositories
             await _dbContext.SuperHeroes.AddAsync(superHero);
         }
 
+        public async Task<bool> Delete(int id)
+        {
+            var result = await _dbContext.SuperHeroes.FirstOrDefaultAsync(sh => sh.Id == id);
+
+            if (result is null)
+                return false;
+
+            _dbContext.SuperHeroes.Remove(result);
+            return true;
+        }
+
         public async Task<SuperHeroListDTO> GetAll()
         {
-            var heroes = await _dbContext.SuperHeroes
+            var superHeroes = await _dbContext.SuperHeroes
+                .AsNoTracking()
                 .Include(x => x.HeroesPowers)
                 .ThenInclude(p => p.SuperPower)
                 .Select(x => new SuperHeroShortDTO
@@ -38,8 +50,49 @@ namespace SuperHeroes.Infrastructure.DataAccess.Repositories
 
             return new SuperHeroListDTO
             {
-                SuperHeroes = heroes
+                SuperHeroes = superHeroes
             };
+        }
+
+        async Task<SuperHeroDTO?> ISuperHeroesReadOnlyRepository.GetById(int id)
+        {
+            var superHero = await _dbContext.SuperHeroes
+                .AsNoTracking()
+                .Where(sh => sh.Id == id)
+                .Select(sh => new SuperHeroDTO
+                {
+                    Id = sh.Id,
+                    Name = sh.Name,
+                    HeroName = sh.HeroName,
+                    BirthDate = sh.BirthDate,
+                    Height = sh.Height,
+                    Weight = sh.Weight,
+                    SuperPowers = sh.HeroesPowers.Select(hp => new SuperPowerDTO
+                    {
+                        Id = hp.SuperPower.Id,
+                        Name = hp.SuperPower.Name,
+                        Description = hp.SuperPower.Description
+                    }).ToList(),
+                }).FirstOrDefaultAsync();
+
+            return superHero;
+        }
+
+        public async Task<bool> HeroNameExists(string heroName, int? excludeId)
+        {
+            return await _dbContext.SuperHeroes
+                .AsNoTracking()
+                .AnyAsync(sh => sh.HeroName == heroName && (!excludeId.HasValue || sh.Id != excludeId.Value));
+        }
+
+        public void Update(SuperHero superHero)
+        {
+            _dbContext.SuperHeroes.Update(superHero);
+        }
+
+        async Task<SuperHero?> ISuperHeroesUpdateOnlyRepository.GetById(int id)
+        {
+            return await _dbContext.SuperHeroes.FirstOrDefaultAsync(sh => sh.Id == id);
         }
     }
 }

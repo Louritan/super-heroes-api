@@ -12,8 +12,8 @@ using SuperHeroes.Infrastructure.DataAccess;
 namespace SuperHeroes.Infrastructure.Migrations
 {
     [DbContext(typeof(SuperHeroesDbContext))]
-    [Migration("20250726005505_FirstMigration")]
-    partial class FirstMigration
+    [Migration("20250726174411_FirstMigation")]
+    partial class FirstMigation
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -66,6 +66,9 @@ namespace SuperHeroes.Infrastructure.Migrations
                         .HasColumnType("real");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("HeroName")
+                        .IsUnique();
 
                     b.ToTable("SuperHeroes");
                 });

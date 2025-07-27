@@ -64,6 +64,9 @@ namespace SuperHeroes.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("HeroName")
+                        .IsUnique();
+
                     b.ToTable("SuperHeroes");
                 });
 

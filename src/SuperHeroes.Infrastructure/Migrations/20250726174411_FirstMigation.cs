@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace SuperHeroes.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class FirstMigration : Migration
+    public partial class FirstMigation : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -71,6 +71,12 @@ namespace SuperHeroes.Infrastructure.Migrations
                 name: "IX_HeroesPowers_PowerId",
                 table: "HeroesPowers",
                 column: "PowerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SuperHeroes_HeroName",
+                table: "SuperHeroes",
+                column: "HeroName",
+                unique: true);
         }
 
         /// <inheritdoc />

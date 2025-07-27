@@ -4,7 +4,7 @@ using SuperHeroes.Domain.Repositories.SuperPowers;
 
 namespace SuperHeroes.Infrastructure.DataAccess.Repositories
 {
-    public class SuperPowersRepository : ISuperPowersRepository
+    public class SuperPowersRepository : ISuperPowersReadOnlyRepository, ISuperPowersWriteOnlyRepository
     {
         private readonly SuperHeroesDbContext _dbContext;
 
@@ -18,12 +18,18 @@ namespace SuperHeroes.Infrastructure.DataAccess.Repositories
             await _dbContext.SuperPowers.AddAsync(superPower);
         }
 
-        public async Task<List<int>> GetExistingIds(List<int> superPowerIds)
+        public async Task<bool> Exists(List<int> superPowerIds)
         {
-            return await _dbContext.SuperPowers
-                .Where(sp => superPowerIds.Contains(sp.Id))
-                .Select(sp => sp.Id)
-                .ToListAsync();
+            var existingCount = await _dbContext.SuperPowers
+                .AsNoTracking()
+                .CountAsync(sp => superPowerIds.Contains(sp.Id));
+
+            return existingCount == superPowerIds.Count;
+        }
+
+        public async Task<List<SuperPower>> GetAll()
+        {
+            return await _dbContext.SuperPowers.AsNoTracking().ToListAsync();
         }
     }
 }
