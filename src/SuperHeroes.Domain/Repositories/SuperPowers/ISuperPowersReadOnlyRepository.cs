@@ -6,5 +6,6 @@ namespace SuperHeroes.Domain.Repositories.SuperPowers
     {
         Task<bool> Exists(List<int> superPowerIds);
         Task<List<SuperPower>> GetAll();
+        Task<int> GetCount();
     }
 }

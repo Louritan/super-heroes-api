@@ -7,5 +7,6 @@ namespace SuperHeroes.Domain.Repositories.SuperHeroes
         Task<SuperHeroListDTO> GetAll();
         Task<SuperHeroDTO?> GetById(int id);
         Task<bool> HeroNameExists(string name, int? excludeId = null);
+        Task<int> GetCount();
     }
 }

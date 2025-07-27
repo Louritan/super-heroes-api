@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using SuperHeroes.Application.AutoMapper;
+using SuperHeroes.Application.UseCases.Metrics.GetAll;
 using SuperHeroes.Application.UseCases.SuperHeroes.Delete;
 using SuperHeroes.Application.UseCases.SuperHeroes.GetAll;
 using SuperHeroes.Application.UseCases.SuperHeroes.GetById;
@@ -32,6 +33,7 @@ namespace SuperHeroes.Application
             services.AddScoped<IGetAllSuperPowersUseCase, GetAllSuperPowersUseCase>();
             services.AddScoped<IDeleteSuperHeroUseCase, DeleteSuperHeroUseCase>();
             services.AddScoped<IUpdateSuperHeroUseCase, UpdateSuperHeroUseCase>();
+            services.AddScoped<IGetAllMetricsUseCase, GetAllMetricsUseCase>();
         }
     }
 }

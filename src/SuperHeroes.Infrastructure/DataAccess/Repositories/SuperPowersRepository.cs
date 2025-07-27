@@ -31,5 +31,10 @@ namespace SuperHeroes.Infrastructure.DataAccess.Repositories
         {
             return await _dbContext.SuperPowers.AsNoTracking().ToListAsync();
         }
+
+        public Task<int> GetCount()
+        {
+            return _dbContext.SuperPowers.AsNoTracking().CountAsync();
+        }
     }
 }

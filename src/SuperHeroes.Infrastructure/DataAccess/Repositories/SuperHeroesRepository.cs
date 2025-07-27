@@ -94,5 +94,10 @@ namespace SuperHeroes.Infrastructure.DataAccess.Repositories
         {
             return await _dbContext.SuperHeroes.FirstOrDefaultAsync(sh => sh.Id == id);
         }
+
+        public async Task<int> GetCount()
+        {
+            return await _dbContext.SuperHeroes.AsNoTracking().CountAsync();
+        }
     }
 }
